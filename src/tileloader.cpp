@@ -78,7 +78,8 @@ void TileLoader::start() {
     for (int x = min_x; x <= max_x; x++) {
       const QUrl uri = uriForTile(x, y);
       //  send request
-      const QNetworkRequest request = QNetworkRequest(uri);
+      QNetworkRequest request = QNetworkRequest(uri);
+      request.setRawHeader("User-Agent", "rviz_satellite/1.0 (rviz; Qt)");
       QNetworkReply *rep = qnam_->get(request);
       emit initiatedRequest(request);
       tiles_.push_back(MapTile(x, y, rep));
